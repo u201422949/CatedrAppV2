@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">CatedrAppV2</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!--    FRAGMENT SPLASH INIT-->
+    <string name="splash_desc_image">Logo de aplicación</string>
+    <!--    FRAGMENT SPLASH END-->
+
+    <!--    FRAGMENT LOGIN INIT-->
+    <string name="login_desc_image_title">Título de aplicación</string>
+    <string name="login_text_mail">Correo</string>
+    <string name="login_text_nickname">Alias</string>
+    <string name="login_text_age">Edad</string>
+    <string name="login_text_before_terms_and_cond">Al continuar has leído y aceptas nuestros</string>
+    <string name="login_text_terms_and_conditions">Términos y condiciones</string>
+    <string name="login_btn_login">Ingresar</string>
+    <string name="login_text_login_with">o ingresa con</string>
+    <string name="login_desc_image_fb">Ingresar con Facebook</string>
+    <string name="login_desc_image_google">Ingresar con Google</string>
+    <string name="login_text_error_mail">Ingrese un correo válido</string>
+    <string name="login_text_error_service_user">No se pudo almacenar la información del usuario. Inténtelo nuevamente</string>
+    <!--    FRAGMENT LOGIN END-->
+
+    <!--    FRAGMENT MAIN INIT-->
+    <string name="main_desc_menu">Ingresar al menú</string>
+    <string name="main_desc_photo">Tomar foto</string>
+    <string name="main_desc_logout">Salir de aplicación</string>
+    <string name="main_desc_avatar">Detalle de usuario</string>
+    <string name="main_text_level_dummy">6</string>
+    <string name="main_text_nickname_dummy">Augusto Alva</string>
+    <string name="main_text_add_score">Puntos por información adicional</string>
+    <string name="main_text_score_dummy">+10</string>
+    <!--    FRAGMENT MAIN END-->
+
+    <!--    MODAL INFO INIT-->
+    <string name="info_desc_close">Cerrar ventana</string>
+    <string name="info_desc_icon">Icono modal</string>
+    <string name="info_title_dummy">Sabías que &#8230;</string>
+    <string name="info_description_dummy">La imagen de Nuestra Señora de la Evangelización es una escultura de la Virgen María con el Niño Jesús en los brazos</string>
+    <!--    MODAL INFO END-->
+
+
+    <string name="fit_image_to_scan">Ajuste la imagen para escanear</string>
+
+
+</resources>

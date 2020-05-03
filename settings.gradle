@@ -1,0 +1,2 @@
+rootProject.name='CatedrAppV2'
+include ':app'

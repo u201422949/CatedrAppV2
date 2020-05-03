@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="user"
+            type="pe.com.creamos.catedrappv2.model.User" />
+
+        <variable
+            name="score"
+            type="pe.com.creamos.catedrappv2.model.Score" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.fragment.MainFragment">
+
+        <View
+            android:id="@+id/focus_view"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_gravity="center_vertical" />
+
+        <fragment
+            android:id="@+id/ux_fragment"
+            android:name="pe.com.creamos.catedrappv2.view.fragment.AugmentedRealityFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/image_view_fit_to_scan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:contentDescription="@string/fit_image_to_scan"
+            android:scaleType="fitCenter"
+            android:src="@drawable/fit_to_scan"
+            android:visibility="gone" />
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:layout_margin="16dp"
+                android:contentDescription="@string/main_desc_menu"
+                android:src="@drawable/main_style_menu_fab"
+                android:visibility="visible" />
+
+            <View
+                android:id="@+id/dummy"
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                app:layout_anchor="@id/fab"
+                app:layout_anchorGravity="top|right|end" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/searchFab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|top"
+                android:layout_margin="16dp"
+                android:contentDescription="@string/main_desc_photo"
+                android:src="@drawable/main_style_camera_fab"
+                android:visibility="visible"
+                app:layout_anchor="@id/dummy"
+                app:layout_anchorGravity="top|right|end" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:layout_margin="16dp"
+                android:contentDescription="@string/main_desc_logout"
+                android:src="@drawable/main_style_logout_fab"
+                android:visibility="visible" />
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_user_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="16dp"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/main_desc_avatar"
+                    android:src="@drawable/main_style_profile_item" />
+
+                <TextView
+                    android:id="@+id/txtLevel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:background="@drawable/main_style_level_indicator"
+                    android:gravity="center"
+                    android:text="@{String.valueOf(score.keyScore)}"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <ProgressBar
+                android:id="@+id/progressScore"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="75dp"
+                android:layout_height="12dp"
+                android:layout_marginBottom="5dp"
+                android:indeterminate="false"
+                android:maxHeight="10dip"
+                android:minHeight="10dip"
+                android:progress="50"
+                android:progressDrawable="@drawable/main_style_progress_indicator" />
+
+            <TextView
+                android:id="@+id/txtNickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{user.nickname}"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_score"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/txt_notification_desc"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/main_style_score_notification"
+                android:paddingStart="16dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="20dp"
+                android:text="@string/main_text_add_score"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_notification_score"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="@string/main_text_score_dummy"
+                android:textColor="@color/main_score_text"
+                android:textSize="44sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </FrameLayout>
+
+</layout>
