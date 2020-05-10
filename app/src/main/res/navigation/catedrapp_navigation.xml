@@ -37,10 +37,18 @@
         <action
             android:id="@+id/action_mainFragment_to_menuFragment"
             app:destination="@id/menuFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_userDetailFragment"
+            app:destination="@id/userDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/menuFragment"
         android:name="pe.com.creamos.catedrappv2.view.fragment.MenuFragment"
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu" />
+    <fragment
+        android:id="@+id/userDetailFragment"
+        android:name="pe.com.creamos.catedrappv2.view.fragment.UserDetailFragment"
+        android:label="fragment_user_detail"
+        tools:layout="@layout/fragment_user_detail" />
 </navigation>

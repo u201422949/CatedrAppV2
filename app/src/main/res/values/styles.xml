@@ -8,4 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TabTextAppearance" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="RadioButtonQuestionStyle" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/modal_question_unchecked_rb</item>
+        <item name="colorControlActivated">@color/modal_question_checked_rb</item>
+    </style>
 </resources>

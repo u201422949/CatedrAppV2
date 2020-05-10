@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorPrimary">#FF8076</color>FF68A0
+    <color name="colorPrimaryDark">#FF65A5</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="login_edittext_text">#757575</color>
     <color name="login_background_blur">#A6FFFFFF</color>
     <color name="main_info_text_color_description">#50535A</color>
     <color name="main_score_text">#FF6C9A</color>
+    <color name="menu_background">#f7414141</color>
+    <color name="menu_tab">#FF2878</color>
+    <color name="menu_tab_text">#666666</color>
+    <color name="modal_question_checked_rb">#FF68A0</color>
+    <color name="modal_question_unchecked_rb">#E5E5E5</color>
+    <color name="modal_question_option_text">#50535A</color>
 </resources>

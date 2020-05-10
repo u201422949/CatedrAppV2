@@ -12,6 +12,10 @@
         <variable
             name="score"
             type="pe.com.creamos.catedrappv2.model.Score" />
+
+        <variable
+            name="typeScore"
+            type="pe.com.creamos.catedrappv2.util.TypeScore" />
     </data>
 
     <FrameLayout
@@ -46,43 +50,53 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab"
+                android:id="@+id/menuFab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|bottom"
-                android:layout_margin="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="38dp"
                 android:contentDescription="@string/main_desc_menu"
+                android:scaleType="center"
                 android:src="@drawable/main_style_menu_fab"
-                android:visibility="visible" />
+                android:visibility="visible"
+                app:fabSize="mini"
+                app:maxImageSize="40dp" />
 
             <View
                 android:id="@+id/dummy"
                 android:layout_width="1dp"
-                android:layout_height="20dp"
-                app:layout_anchor="@id/fab"
+                android:layout_height="24dp"
+                app:layout_anchor="@id/menuFab"
                 app:layout_anchorGravity="top|right|end" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/searchFab"
+                android:id="@+id/photoFab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|top"
                 android:layout_margin="16dp"
                 android:contentDescription="@string/main_desc_photo"
+                android:scaleType="center"
                 android:src="@drawable/main_style_camera_fab"
                 android:visibility="visible"
+                app:fabSize="mini"
                 app:layout_anchor="@id/dummy"
-                app:layout_anchorGravity="top|right|end" />
+                app:layout_anchorGravity="top|right|end"
+                app:maxImageSize="40dp" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab3"
+                android:id="@+id/logoutFab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|end"
                 android:layout_margin="16dp"
                 android:contentDescription="@string/main_desc_logout"
+                android:scaleType="center"
                 android:src="@drawable/main_style_logout_fab"
-                android:visibility="visible" />
+                android:visibility="visible"
+                app:fabSize="mini"
+                app:maxImageSize="40dp" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <LinearLayout
@@ -138,7 +152,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linear_score"
+            android:id="@+id/linearScore"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
@@ -154,7 +168,7 @@
                 android:paddingTop="20dp"
                 android:paddingEnd="16dp"
                 android:paddingBottom="20dp"
-                android:text="@string/main_text_add_score"
+                android:text="@{typeScore.description}"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -164,12 +178,10 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:text="@string/main_text_score_dummy"
+                android:text="@{`+`+typeScore.points}"
                 android:textColor="@color/main_score_text"
                 android:textSize="44sp"
                 android:textStyle="bold" />
-
         </LinearLayout>
     </FrameLayout>
-
 </layout>

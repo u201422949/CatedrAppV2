@@ -9,14 +9,18 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import com.google.ar.core.AugmentedImage
 import com.google.ar.core.TrackingState
 import com.google.ar.sceneform.FrameTime
 import com.google.ar.sceneform.Node
 import com.google.ar.sceneform.ux.ArFragment
+import kotlinx.android.synthetic.main.fragment_main.*
 import pe.com.creamos.catedrappv2.R
+import pe.com.creamos.catedrappv2.R.layout.fragment_main
 import pe.com.creamos.catedrappv2.databinding.FragmentMainBinding
 import pe.com.creamos.catedrappv2.model.AdditionalInformation
+import pe.com.creamos.catedrappv2.util.TypeScore
 import pe.com.creamos.catedrappv2.view.interfaces.InfoWindowInterface
 import pe.com.creamos.catedrappv2.view.node.ChurchNode
 import pe.com.creamos.catedrappv2.view.node.InfoNode
@@ -26,7 +30,7 @@ import pe.com.creamos.catedrappv2.viewmodel.MainViewModel
 /**
  * A simple [Fragment] subclass.
  */
-class MainFragment : Fragment(), InfoWindowInterface {
+class MainFragment : Fragment(), InfoWindowInterface, View.OnClickListener {
 
     private val TAG: String = MainFragment::class.java.simpleName
 
@@ -38,7 +42,7 @@ class MainFragment : Fragment(), InfoWindowInterface {
     private var infoNode: InfoNode? = null
 
     //private val user: User? = null
-    private val giOpcion = 3
+    private val giOption = 3
     private var goImageMapPope: HashMap<AugmentedImage, PopeNode> =
         HashMap<AugmentedImage, PopeNode>()
     private var goImageMapChurch: HashMap<AugmentedImage, ChurchNode> =
@@ -52,7 +56,7 @@ class MainFragment : Fragment(), InfoWindowInterface {
     ): View? {
         dataBinding = DataBindingUtil.inflate<FragmentMainBinding>(
             inflater,
-            R.layout.fragment_main,
+            fragment_main,
             container,
             false
         )
@@ -61,6 +65,10 @@ class MainFragment : Fragment(), InfoWindowInterface {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        menuFab.setOnClickListener(this)
+        logoutFab.setOnClickListener(this)
+        photoFab.setOnClickListener(this)
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         viewModel.refresh()
@@ -150,7 +158,7 @@ class MainFragment : Fragment(), InfoWindowInterface {
                         goArFragment!!.arSceneView.scene.removeChild(infoNode)
                         goImageMapInfo.clear()
                     }
-                TrackingState.TRACKING -> when (giOpcion) {
+                TrackingState.TRACKING -> when (giOption) {
                     1 -> if (!goImageMapPope.containsKey(augmentedImage)) {
                         val popeNode = PopeNode(context)
                         popeNode.setImage(augmentedImage)
@@ -190,7 +198,7 @@ class MainFragment : Fragment(), InfoWindowInterface {
 //                                        info.getIdImage(),
 //                                        info.getIdImage()
 //                                    )
-                                // animateScore(TypeScore.ADDITIONAL_INFORMATION)
+                                animateScore(TypeScore.ADDITIONAL_INFORMATION)
                                 //Toast.makeText(MainActivity.this, "Se sumarán 10 puntos", Toast.LENGTH_LONG).show();
 //                                } else {
 //                                    // Toast.makeText(MainActivity.this, "No se sumarán puntos", Toast.LENGTH_LONG).show();
@@ -208,7 +216,28 @@ class MainFragment : Fragment(), InfoWindowInterface {
         }
     }
 
+    private fun animateScore(typeScore: TypeScore) {
+        dataBinding.typeScore = typeScore
+        linearScore.visibility = View.VISIBLE
+
+        val accumulatedScore = progressScore.progress + typeScore.points
+        progressScore.progress = accumulatedScore
+        linearScore.postDelayed(Runnable { linearScore.visibility = View.GONE }, 2000)
+    }
+
     override fun onCloseClicked(node: Node) {
-        TODO("Not yet implemented")
+        node?.let {
+            goArFragment!!.arSceneView.scene.removeChild(it)
+            goImageMapInfo.clear()
+        }
+    }
+
+    override fun onClick(v: View?) {
+        v?.let {
+            if (it == (menuFab)) {
+                Navigation.findNavController(it)
+                    .navigate(MainFragmentDirections.actionMainFragmentToMenuFragment())
+            }
+        }
     }
 }

@@ -23,6 +23,7 @@ data class AdditionalInformation(
 
 @Entity
 data class User(
+    @ColumnInfo(name = "visitor_id")
     var visitorId: Int?,
 
     val mail: String?,
@@ -46,3 +47,25 @@ data class Score(
     @ColumnInfo(name = "score_value")
     val scoreValue: String?
 ) {}
+
+@Entity
+data class Question(
+    @ColumnInfo(name = "id_question")
+    val idQuestion: String?,
+
+    val title: String?,
+
+    val answer: String?,
+
+    val options: List<Option>?
+){
+    @PrimaryKey(autoGenerate = true)
+    var qid: Int? = 0
+}
+
+@Entity
+data class Option(
+    val key: String?,
+
+    val value: String?
+){}

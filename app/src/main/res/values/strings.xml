@@ -40,8 +40,36 @@
     <string name="info_description_dummy">La imagen de Nuestra Señora de la Evangelización es una escultura de la Virgen María con el Niño Jesús en los brazos</string>
     <!--    MODAL INFO END-->
 
+    <!--    MODAL QUESTION INIT-->
+    <string name="question_desc_close">Cerrar ventana</string>
+    <string name="question_desc_icon">Icono modal</string>
+    <string name="question_title_dummy">¿Cómo se llama el primer Papa que visitó el Perú?</string>
+    <string name="question_first_option_dummy">LUIS IV</string>
+    <string name="question_second_option_dummy">CARLOS V</string>
+    <string name="question_third_option_dummy">JUAN II</string>
+    <string name="question_fourth_option_dummy">LUIS V</string>
+    <!--    MODAL QUESTION END-->
+
+    <!--    MODAL QUESTION RIGHT INIT-->
+    <string name="question_right_desc_close">Cerrar ventana</string>
+    <string name="question_right_desc_icon">Icono modal</string>
+    <string name="question_right_desc_star">Decor Image</string>
+    <string name="question_right_title">Respuesta correcta</string>
+    <string name="question_right_response_dummy">LUIS IV llegó al Perú en el año 1727</string>
+    <!--    MODAL QUESTION RIGHT END-->
+
+    <!--    MODAL QUESTION WRONG INIT-->
+    <string name="question_wrong_desc_close">Cerrar ventana</string>
+    <string name="question_wrong_desc_icon">Icono modal</string>
+    <string name="question_wrong_title">Respuesta incorrecta</string>
+    <string name="question_wrong_response_dummy">LUIS IV llegó al Perú en el año 1727</string>
+    <!--    MODAL QUESTION WRONG END-->
+
+    <!--    FRAGMENT MENU INIT-->
+    <string name="menu_desc_close">Cerrar Menú</string>
+    <!--    FRAGMENT MENU END-->
+
 
     <string name="fit_image_to_scan">Ajuste la imagen para escanear</string>
-
 
 </resources>
