@@ -91,7 +91,7 @@
                         android:id="@+id/radioFirstOption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:tag="1"
+                        android:tag="@{option1.key}"
                         android:text="@{option1.value}"
                         android:textColor="@color/modal_question_option_text" />
 
@@ -99,7 +99,7 @@
                         android:id="@+id/radioThirdOption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:tag="3"
+                        android:tag="@{option3.key}"
                         android:text="@{option3.value}"
                         android:textColor="@color/modal_question_option_text" />
                 </RadioGroup>
@@ -122,7 +122,7 @@
                         android:id="@+id/radioSecondOption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:tag="2"
+                        android:tag="@{option2.key}"
                         android:text="@{option2.value}"
                         android:textColor="@color/modal_question_option_text" />
 
@@ -130,7 +130,7 @@
                         android:id="@+id/radioFourthOption"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:tag="4"
+                        android:tag="@{option4.key}"
                         android:text="@{option4.value}"
                         android:textColor="@color/modal_question_option_text" />
                 </RadioGroup>

@@ -43,6 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{user.nickname}"
+                android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="30sp"
                 android:textStyle="bold"
@@ -106,7 +107,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="top|center"
-                        android:text="6"
+                        android:text="@{String.valueOf(score.level)}"
                         android:textColor="#FF6C9A"
                         android:textSize="34sp"
                         android:textStyle="bold"
@@ -151,10 +152,11 @@
                     </LinearLayout>
 
                     <pe.com.creamos.catedrappv2.util.OutlineTextView
+                        android:id="@+id/txtLevel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="top|center"
-                        android:text="15700"
+                        android:text="@{score.scoreValue}"
                         android:textColor="#F0A023"
                         android:textSize="34sp"
                         android:textStyle="bold"

@@ -112,14 +112,28 @@ class MainFragment : Fragment(), InfoWindowListener, View.OnClickListener {
                 questionList = listOf(
                     Question(
                         "1",
+                        "papa.jpg",
                         "¿Cómo se llama el primer Papa qué visitó el Perú?",
-                        "Felicitaciones, acertaste en tu respuesta",
-                        2,
+                        "Juan Pablo II fue el primer Papa que visitó el Perú en Febrero de 1985",
+                        3,
                         listOf(
                             Option("1", "LUIS IV"),
                             Option("2", "CARLOS V"),
-                            Option("3", "JUAN II"),
+                            Option("3", "JUAN PABLO II"),
                             Option("4", "LUIS V")
+                        )
+                    ),
+                    Question(
+                        "2",
+                        "virgen.png",
+                        "¿Cómo se le conoce popularmente a Nuestra Señora de la Evangelización?",
+                        "Juan Pablo II fue el primer papa que visitó el Perú en Febrero de 1985",
+                        2,
+                        listOf(
+                            Option("1", "Santa Rosa de Lima"),
+                            Option("2", "Patrona de facto del Perú"),
+                            Option("3", "Virgen Mariana"),
+                            Option("4", "Ninguna de las anteriores")
                         )
                     )
                 )
@@ -247,39 +261,39 @@ class MainFragment : Fragment(), InfoWindowListener, View.OnClickListener {
 
                     4 -> if (!goImageMapQuestion.containsKey(augmentedImage)) {
                         for (question in questionList!!) {
-//                            if (augmentedImage.name == question.idImage) {
+                            if (augmentedImage.name == question.idImage) {
 //                                if (LocalStorage.getStringFromSharedPreferences(
 //                                        this@MainActivity,
 //                                        info.getIdImage()
 //                                    ).isEmpty()
 //                                ) {
-                            if (!answeredQuestion) {
-                                questionNode =
-                                    QuestionNode(context, question, this)
-                                questionNode?.setImage(augmentedImage)
-                                goImageMapQuestion[augmentedImage] = questionNode!!
-                                goArFragment!!.arSceneView.scene.addChild(questionNode)
-                                Log.i(
-                                    TAG,
-                                    "goArFragment: " + goArFragment!!.arSceneView.scene
-                                        .children.toString()
-                                )
-                                Log.i(
-                                    TAG,
-                                    "goImageMapQuestion: $goImageMapQuestion"
-                                )
+                                if (!answeredQuestion) {
+                                    questionNode =
+                                        QuestionNode(context, question, this)
+                                    questionNode?.setImage(augmentedImage)
+                                    goImageMapQuestion[augmentedImage] = questionNode!!
+                                    goArFragment!!.arSceneView.scene.addChild(questionNode)
+                                    Log.i(
+                                        TAG,
+                                        "goArFragment: " + goArFragment!!.arSceneView.scene
+                                            .children.toString()
+                                    )
+                                    Log.i(
+                                        TAG,
+                                        "goImageMapQuestion: $goImageMapQuestion"
+                                    )
 //                                    LocalStorage.saveStringSharedPreferences(
 //                                        this@MainActivity,
 //                                        info.getIdImage(),
 //                                        info.getIdImage()
 //                                    )
-                                animateScore(TypeScore.ADDITIONAL_INFORMATION)
-                            }
-                            //Toast.makeText(MainActivity.this, "Se sumarán 10 puntos", Toast.LENGTH_LONG).show();
+                                    animateScore(TypeScore.ADDITIONAL_INFORMATION)
+                                }
+                                //Toast.makeText(MainActivity.this, "Se sumarán 10 puntos", Toast.LENGTH_LONG).show();
 //                                } else {
 //                                    // Toast.makeText(MainActivity.this, "No se sumarán puntos", Toast.LENGTH_LONG).show();
 //                                }
-//                            }
+                            }
                         }
                     }
                 }
@@ -346,7 +360,10 @@ class MainFragment : Fragment(), InfoWindowListener, View.OnClickListener {
                     .navigate(MainFragmentDirections.actionMainFragmentToMenuFragment())
             } else if (it == linearUserInfo) {
                 Navigation.findNavController(it)
-                    .navigate(MainFragmentDirections.actionMainFragmentToUserDetailFragment())
+                    .navigate(
+                        MainFragmentDirections.actionMainFragmentToUserDetailFragment()
+                            .setUserArgs(viewModel.user.value)
+                    )
             }
         }
     }

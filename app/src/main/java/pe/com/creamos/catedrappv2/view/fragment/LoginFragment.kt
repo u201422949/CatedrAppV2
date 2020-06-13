@@ -57,7 +57,7 @@ class LoginFragment : Fragment(), OnClickListener, TextWatcher {
             return
         }
 
-        viewModel.service(User(1, textMail, textNickname, textAge.toInt(), Score(10, "10")))
+        viewModel.service(User(1, textMail, textNickname, textAge.toInt(), Score(10, "10", 1)))
         observeViewModel(v)
     }
 

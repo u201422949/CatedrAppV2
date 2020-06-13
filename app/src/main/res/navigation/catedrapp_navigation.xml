@@ -50,5 +50,11 @@
         android:id="@+id/userDetailFragment"
         android:name="pe.com.creamos.catedrappv2.view.fragment.UserDetailFragment"
         android:label="fragment_user_detail"
-        tools:layout="@layout/fragment_user_detail" />
+        tools:layout="@layout/fragment_user_detail" >
+        <argument
+            android:name="userArgs"
+            app:argType="pe.com.creamos.catedrappv2.model.User"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 </navigation>

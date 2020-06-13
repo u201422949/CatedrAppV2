@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import pe.com.creamos.catedrappv2.R
 import pe.com.creamos.catedrappv2.databinding.FragmentUserDetailBinding
 
@@ -15,6 +16,7 @@ import pe.com.creamos.catedrappv2.databinding.FragmentUserDetailBinding
 class UserDetailFragment : Fragment() {
 
     private lateinit var dataBinding: FragmentUserDetailBinding
+    val args: UserDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,7 +28,12 @@ class UserDetailFragment : Fragment() {
             container,
             false
         )
+
         return dataBinding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        dataBinding.user = args.userArgs
+        dataBinding.score = args.userArgs?.score
+    }
 }
