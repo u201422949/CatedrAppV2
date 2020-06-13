@@ -1,93 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="288dp"
-    android:layout_height="365dp"
-    android:background="@drawable/main_style_info"
-    android:clipChildren="false"
-    android:clipToPadding="false"
-    android:orientation="vertical"
-    android:padding="4dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/img_info_close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:contentDescription="@string/info_desc_close"
-        android:src="@drawable/modal_info_close" />
+    <data>
 
-    <ImageView
-        android:id="@+id/img_info_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
-        android:contentDescription="@string/info_desc_icon"
-        android:src="@drawable/modal_question_icon" />
+        <variable
+            name="question"
+            type="pe.com.creamos.catedrappv2.model.Question" />
 
-    <TextView
-        android:id="@+id/txt_info_title"
-        android:layout_width="256dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="22dp"
-        android:layout_marginEnd="16dp"
-        android:text="@string/question_title_dummy"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        <variable
+            name="option1"
+            type="pe.com.creamos.catedrappv2.model.Option" />
 
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        android:theme="@style/RadioButtonQuestionStyle">
+        <variable
+            name="option2"
+            type="pe.com.creamos.catedrappv2.model.Option" />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+        <variable
+            name="option3"
+            type="pe.com.creamos.catedrappv2.model.Option" />
 
-            <RadioButton
-                android:id="@+id/radioFirstOption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/question_first_option_dummy"
-                android:textColor="@color/modal_question_option_text" />
+        <variable
+            name="option4"
+            type="pe.com.creamos.catedrappv2.model.Option" />
+    </data>
 
-            <RadioButton
-                android:id="@+id/radioThirdOption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/question_third_option_dummy"
-                android:textColor="@color/modal_question_option_text" />
-        </LinearLayout>
+    <LinearLayout
+        android:layout_width="288dp"
+        android:layout_height="365dp"
+        android:background="@drawable/main_style_info"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:padding="4dp">
+
+        <ImageView
+            android:id="@+id/imgInfoClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:contentDescription="@string/info_desc_close"
+            android:src="@drawable/modal_info_close" />
+
+        <ImageView
+            android:id="@+id/img_info_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:contentDescription="@string/info_desc_icon"
+            android:src="@drawable/modal_question_icon" />
+
+        <TextView
+            android:id="@+id/txt_info_title"
+            android:layout_width="256dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{question.title}"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="vertical">
+            android:baselineAligned="false"
+            android:padding="16dp">
 
-            <RadioButton
-                android:id="@+id/radioSecondOption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/question_second_option_dummy"
-                android:textColor="@color/modal_question_option_text" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                tools:ignore="NestedWeights">
 
-            <RadioButton
-                android:id="@+id/radioFourthOption"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/question_fourth_option_dummy"
-                android:textColor="@color/modal_question_option_text" />
+                <RadioGroup
+                    android:id="@+id/radioGroupFirst"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:theme="@style/RadioButtonQuestionStyle"
+                    tools:ignore="UselessParent">
+
+                    <RadioButton
+                        android:id="@+id/radioFirstOption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tag="1"
+                        android:text="@{option1.value}"
+                        android:textColor="@color/modal_question_option_text" />
+
+                    <RadioButton
+                        android:id="@+id/radioThirdOption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tag="3"
+                        android:text="@{option3.value}"
+                        android:textColor="@color/modal_question_option_text" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <RadioGroup
+                    android:id="@+id/radioGroupSecond"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:theme="@style/RadioButtonQuestionStyle"
+                    tools:ignore="UselessParent">
+
+                    <RadioButton
+                        android:id="@+id/radioSecondOption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tag="2"
+                        android:text="@{option2.value}"
+                        android:textColor="@color/modal_question_option_text" />
+
+                    <RadioButton
+                        android:id="@+id/radioFourthOption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tag="4"
+                        android:text="@{option4.value}"
+                        android:textColor="@color/modal_question_option_text" />
+                </RadioGroup>
+            </LinearLayout>
         </LinearLayout>
-    </RadioGroup>
-</LinearLayout>
+    </LinearLayout>
+</layout>

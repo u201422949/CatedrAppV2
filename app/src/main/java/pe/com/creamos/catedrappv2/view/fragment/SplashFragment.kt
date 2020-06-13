@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import pe.com.creamos.catedrappv2.R
+import pe.com.creamos.catedrappv2.R.layout.fragment_splash
 import pe.com.creamos.catedrappv2.view.activity.MainActivity
 
 /**
@@ -19,7 +19,7 @@ class SplashFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_splash, container, false)
+        return inflater.inflate(fragment_splash, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -1,14 +1,13 @@
 package pe.com.creamos.catedrappv2.view.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
 import kotlinx.android.synthetic.main.fragment_menu.*
-
-import pe.com.creamos.catedrappv2.R
+import pe.com.creamos.catedrappv2.R.layout.fragment_menu
 import pe.com.creamos.catedrappv2.view.adapter.MenuPageAdapter
 
 /**
@@ -22,7 +21,7 @@ class MenuFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_menu, container, false)
+        return inflater.inflate(fragment_menu, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

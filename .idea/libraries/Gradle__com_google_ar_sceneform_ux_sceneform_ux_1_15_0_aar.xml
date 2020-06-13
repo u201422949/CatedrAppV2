@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.ar.sceneform.ux:sceneform-ux:1.15.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/57ddb6ba9e204c97f999bcb5adeb0612/jetified-sceneform-ux-1.15.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/57ddb6ba9e204c97f999bcb5adeb0612/jetified-sceneform-ux-1.15.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5bb599e2870b9fba48e7a6bfa2f2f40a/jetified-sceneform-ux-1.15.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5bb599e2870b9fba48e7a6bfa2f2f40a/jetified-sceneform-ux-1.15.0/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

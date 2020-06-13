@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_login.*
 import pe.com.creamos.catedrappv2.R
+import pe.com.creamos.catedrappv2.R.layout.fragment_login
 import pe.com.creamos.catedrappv2.model.Score
 import pe.com.creamos.catedrappv2.model.User
 import pe.com.creamos.catedrappv2.util.validateMail
@@ -34,7 +35,7 @@ class LoginFragment : Fragment(), OnClickListener, TextWatcher {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        return inflater.inflate(fragment_login, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

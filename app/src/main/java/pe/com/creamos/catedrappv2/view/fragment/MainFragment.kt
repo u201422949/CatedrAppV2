@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -20,17 +21,17 @@ import pe.com.creamos.catedrappv2.R
 import pe.com.creamos.catedrappv2.R.layout.fragment_main
 import pe.com.creamos.catedrappv2.databinding.FragmentMainBinding
 import pe.com.creamos.catedrappv2.model.AdditionalInformation
+import pe.com.creamos.catedrappv2.model.Option
+import pe.com.creamos.catedrappv2.model.Question
 import pe.com.creamos.catedrappv2.util.TypeScore
-import pe.com.creamos.catedrappv2.view.interfaces.InfoWindowInterface
-import pe.com.creamos.catedrappv2.view.node.ChurchNode
-import pe.com.creamos.catedrappv2.view.node.InfoNode
-import pe.com.creamos.catedrappv2.view.node.PopeNode
+import pe.com.creamos.catedrappv2.view.interfaces.InfoWindowListener
+import pe.com.creamos.catedrappv2.view.node.*
 import pe.com.creamos.catedrappv2.viewmodel.MainViewModel
 
 /**
  * A simple [Fragment] subclass.
  */
-class MainFragment : Fragment(), InfoWindowInterface, View.OnClickListener {
+class MainFragment : Fragment(), InfoWindowListener, View.OnClickListener {
 
     private val TAG: String = MainFragment::class.java.simpleName
 
@@ -38,23 +39,31 @@ class MainFragment : Fragment(), InfoWindowInterface, View.OnClickListener {
     private lateinit var dataBinding: FragmentMainBinding
 
     private var infoList: List<AdditionalInformation>? = ArrayList()
+    private var questionList: List<Question>? = ArrayList()
     private var goArFragment: ArFragment? = null
     private var infoNode: InfoNode? = null
+    private var questionNode: QuestionNode? = null
+    private var answerNode: AnswerNode? = null
+    private var answeredQuestion = false
 
     //private val user: User? = null
-    private val giOption = 3
+    private val giOption = 4
     private var goImageMapPope: HashMap<AugmentedImage, PopeNode> =
-        HashMap<AugmentedImage, PopeNode>()
+        HashMap()
     private var goImageMapChurch: HashMap<AugmentedImage, ChurchNode> =
-        HashMap<AugmentedImage, ChurchNode>()
+        HashMap()
     private var goImageMapInfo: HashMap<AugmentedImage, InfoNode> =
-        HashMap<AugmentedImage, InfoNode>()
+        HashMap()
+    private var goImageMapQuestion: HashMap<AugmentedImage, QuestionNode> =
+        HashMap()
+    private var goImageMapAnswer: HashMap<AugmentedImage, AnswerNode> =
+        HashMap()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dataBinding = DataBindingUtil.inflate<FragmentMainBinding>(
+        dataBinding = DataBindingUtil.inflate(
             inflater,
             fragment_main,
             container,
@@ -69,6 +78,7 @@ class MainFragment : Fragment(), InfoWindowInterface, View.OnClickListener {
         menuFab.setOnClickListener(this)
         logoutFab.setOnClickListener(this)
         photoFab.setOnClickListener(this)
+        linearUserInfo.setOnClickListener(this)
 
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         viewModel.refresh()
@@ -84,7 +94,7 @@ class MainFragment : Fragment(), InfoWindowInterface, View.OnClickListener {
                 dataBinding.user = it
                 dataBinding.score = it.score
 
-                infoList = listOf<AdditionalInformation>(
+                infoList = listOf(
                     AdditionalInformation(
                         "1",
                         "papa.jpg",
@@ -98,6 +108,21 @@ class MainFragment : Fragment(), InfoWindowInterface, View.OnClickListener {
                         "Descripción acerca de Virgen de la puerta"
                     )
                 )
+
+                questionList = listOf(
+                    Question(
+                        "1",
+                        "¿Cómo se llama el primer Papa qué visitó el Perú?",
+                        "Felicitaciones, acertaste en tu respuesta",
+                        2,
+                        listOf(
+                            Option("1", "LUIS IV"),
+                            Option("2", "CARLOS V"),
+                            Option("3", "JUAN II"),
+                            Option("4", "LUIS V")
+                        )
+                    )
+                )
             }
         })
         viewModel.information.observe(viewLifecycleOwner, Observer { informationList ->
@@ -107,7 +132,7 @@ class MainFragment : Fragment(), InfoWindowInterface, View.OnClickListener {
 
         viewModel.infoLoadError.observe(viewLifecycleOwner, Observer { isError ->
             isError?.let {
-                infoList = listOf<AdditionalInformation>(
+                infoList = listOf(
                     AdditionalInformation(
                         "1",
                         "papa.jpg",
@@ -153,22 +178,35 @@ class MainFragment : Fragment(), InfoWindowInterface, View.OnClickListener {
                         )
                         Log.i(
                             TAG,
-                            "goImageMapInfo: " + goImageMapInfo.toString()
+                            "goImageMapInfo: $goImageMapInfo"
                         )
                         goArFragment!!.arSceneView.scene.removeChild(infoNode)
                         goImageMapInfo.clear()
+                    } else if (questionNode != null) {
+                        Log.i(
+                            TAG,
+                            "goArFragment: " + goArFragment!!.arSceneView.scene.children
+                                .toString()
+                        )
+                        Log.i(
+                            TAG,
+                            "goImageMapQuestion: $goImageMapQuestion"
+                        )
+                        goArFragment!!.arSceneView.scene.removeChild(questionNode)
+                        goImageMapQuestion.clear()
                     }
+
                 TrackingState.TRACKING -> when (giOption) {
                     1 -> if (!goImageMapPope.containsKey(augmentedImage)) {
                         val popeNode = PopeNode(context)
                         popeNode.setImage(augmentedImage)
-                        goImageMapPope.put(augmentedImage, popeNode)
+                        goImageMapPope[augmentedImage] = popeNode
                         goArFragment!!.arSceneView.scene.addChild(popeNode)
                     }
                     2 -> if (!goImageMapChurch.containsKey(augmentedImage)) {
                         val churchNode = ChurchNode(context)
                         churchNode.setImage(augmentedImage)
-                        goImageMapChurch.put(augmentedImage, churchNode)
+                        goImageMapChurch[augmentedImage] = churchNode
                         goArFragment!!.arSceneView.scene.addChild(churchNode)
                     }
                     3 -> if (!goImageMapInfo.containsKey(augmentedImage)) {
@@ -180,9 +218,9 @@ class MainFragment : Fragment(), InfoWindowInterface, View.OnClickListener {
 //                                    ).isEmpty()
 //                                ) {
                                 infoNode =
-                                    InfoNode(context, info.title, info.description, this)
+                                    InfoNode(context, info, this)
                                 infoNode?.setImage(augmentedImage)
-                                goImageMapInfo.put(augmentedImage, infoNode!!)
+                                goImageMapInfo[augmentedImage] = infoNode!!
                                 goArFragment!!.arSceneView.scene.addChild(infoNode)
                                 Log.i(
                                     TAG,
@@ -191,7 +229,7 @@ class MainFragment : Fragment(), InfoWindowInterface, View.OnClickListener {
                                 )
                                 Log.i(
                                     TAG,
-                                    "goImageMapInfo: " + goImageMapInfo.toString()
+                                    "goImageMapInfo: $goImageMapInfo"
                                 )
 //                                    LocalStorage.saveStringSharedPreferences(
 //                                        this@MainActivity,
@@ -206,11 +244,50 @@ class MainFragment : Fragment(), InfoWindowInterface, View.OnClickListener {
                             }
                         }
                     }
+
+                    4 -> if (!goImageMapQuestion.containsKey(augmentedImage)) {
+                        for (question in questionList!!) {
+//                            if (augmentedImage.name == question.idImage) {
+//                                if (LocalStorage.getStringFromSharedPreferences(
+//                                        this@MainActivity,
+//                                        info.getIdImage()
+//                                    ).isEmpty()
+//                                ) {
+                            if (!answeredQuestion) {
+                                questionNode =
+                                    QuestionNode(context, question, this)
+                                questionNode?.setImage(augmentedImage)
+                                goImageMapQuestion[augmentedImage] = questionNode!!
+                                goArFragment!!.arSceneView.scene.addChild(questionNode)
+                                Log.i(
+                                    TAG,
+                                    "goArFragment: " + goArFragment!!.arSceneView.scene
+                                        .children.toString()
+                                )
+                                Log.i(
+                                    TAG,
+                                    "goImageMapQuestion: $goImageMapQuestion"
+                                )
+//                                    LocalStorage.saveStringSharedPreferences(
+//                                        this@MainActivity,
+//                                        info.getIdImage(),
+//                                        info.getIdImage()
+//                                    )
+                                animateScore(TypeScore.ADDITIONAL_INFORMATION)
+                            }
+                            //Toast.makeText(MainActivity.this, "Se sumarán 10 puntos", Toast.LENGTH_LONG).show();
+//                                } else {
+//                                    // Toast.makeText(MainActivity.this, "No se sumarán puntos", Toast.LENGTH_LONG).show();
+//                                }
+//                            }
+                        }
+                    }
                 }
                 TrackingState.STOPPED -> {
                     goImageMapPope.remove(augmentedImage)
                     goImageMapChurch.remove(augmentedImage)
                     goImageMapInfo.remove(augmentedImage)
+                    goImageMapQuestion.remove(augmentedImage)
                 }
             }
         }
@@ -222,14 +299,44 @@ class MainFragment : Fragment(), InfoWindowInterface, View.OnClickListener {
 
         val accumulatedScore = progressScore.progress + typeScore.points
         progressScore.progress = accumulatedScore
-        linearScore.postDelayed(Runnable { linearScore.visibility = View.GONE }, 2000)
+        linearScore.postDelayed({ linearScore.visibility = View.GONE }, 2000)
     }
 
     override fun onCloseClicked(node: Node) {
-        node?.let {
+        node.let {
             goArFragment!!.arSceneView.scene.removeChild(it)
             goImageMapInfo.clear()
+            goImageMapQuestion.clear()
+            goImageMapAnswer.clear()
         }
+    }
+
+    override fun onDueTimeWindow(
+        node: Node,
+        image: AugmentedImage,
+        question: Question,
+        answer: Boolean
+    ) {
+        answeredQuestion = true
+        onCloseClicked(node)
+
+        Toast.makeText(context, "La respuesta es $answer", Toast.LENGTH_LONG).show()
+
+        answerNode =
+            AnswerNode(context, question, answer, this)
+        answerNode?.setImage(image)
+        goImageMapAnswer[image] = answerNode!!
+
+        goArFragment!!.arSceneView.scene.addChild(answerNode)
+        Log.i(
+            TAG,
+            "goArFragment: " + goArFragment!!.arSceneView.scene
+                .children.toString()
+        )
+        Log.i(
+            TAG,
+            "goImageMapAnswer: $goImageMapAnswer"
+        )
     }
 
     override fun onClick(v: View?) {
@@ -237,6 +344,9 @@ class MainFragment : Fragment(), InfoWindowInterface, View.OnClickListener {
             if (it == (menuFab)) {
                 Navigation.findNavController(it)
                     .navigate(MainFragmentDirections.actionMainFragmentToMenuFragment())
+            } else if (it == linearUserInfo) {
+                Navigation.findNavController(it)
+                    .navigate(MainFragmentDirections.actionMainFragmentToUserDetailFragment())
             }
         }
     }

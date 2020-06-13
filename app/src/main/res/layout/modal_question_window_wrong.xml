@@ -1,58 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="288dp"
-    android:layout_height="375dp"
-    android:background="@android:color/transparent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="question"
+            type="pe.com.creamos.catedrappv2.model.Question" />
+
+    </data>
 
     <LinearLayout
         android:layout_width="288dp"
-        android:layout_height="288dp"
-        android:background="@drawable/main_style_info"
-        android:clipChildren="false"
-        android:clipToPadding="false"
+        android:layout_height="375dp"
         android:orientation="vertical"
-        android:padding="4dp">
+        android:background="@android:color/transparent">
+
+        <LinearLayout
+            android:layout_width="288dp"
+            android:layout_height="288dp"
+            android:background="@drawable/main_style_info"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:padding="4dp">
+
+            <ImageView
+                android:id="@+id/img_question_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="28dp"
+                android:contentDescription="@string/question_right_desc_icon"
+                android:src="@drawable/modal_question_wrong_icon" />
+
+            <TextView
+                android:id="@+id/txt_question_title"
+                android:layout_width="256dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/question_wrong_title"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtQuestionDescription"
+                android:layout_width="256dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="16dp"
+                android:text="@{question.answer}"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+        </LinearLayout>
 
         <ImageView
-            android:id="@+id/img_question_icon"
+            android:id="@+id/imgInfoClose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="28dp"
-            android:contentDescription="@string/question_right_desc_icon"
-            android:src="@drawable/modal_question_wrong_icon" />
-
-        <TextView
-            android:id="@+id/txt_question_title"
-            android:layout_width="256dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="16dp"
-            android:text="@string/question_wrong_title"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txt_question_description"
-            android:layout_width="256dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="9dp"
-            android:layout_marginEnd="16dp"
-            android:text="@string/question_wrong_response_dummy"
-            android:textAlignment="center"
-            android:textSize="20sp" />
+            android:layout_marginTop="22dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:contentDescription="@string/question_wrong_desc_close"
+            android:src="@drawable/modal_question_close" />
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/img_question_close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:contentDescription="@string/question_wrong_desc_close"
-        android:src="@drawable/modal_question_close" />
-</FrameLayout>
+</layout>

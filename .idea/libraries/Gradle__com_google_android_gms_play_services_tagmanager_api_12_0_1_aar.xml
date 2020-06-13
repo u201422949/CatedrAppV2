@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.android.gms:play-services-tagmanager-api:12.0.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/cf6fba60a1193be38a5a6f63ea9df328/jetified-play-services-tagmanager-api-12.0.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/cf6fba60a1193be38a5a6f63ea9df328/jetified-play-services-tagmanager-api-12.0.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ba96ac1e47f8dcaf26657eb4f2a8e1fd/jetified-play-services-tagmanager-api-12.0.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ba96ac1e47f8dcaf26657eb4f2a8e1fd/jetified-play-services-tagmanager-api-12.0.1/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

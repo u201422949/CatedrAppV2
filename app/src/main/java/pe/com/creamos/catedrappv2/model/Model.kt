@@ -57,8 +57,10 @@ data class Question(
 
     val answer: String?,
 
+    val answerKey: Int?,
+
     val options: List<Option>?
-){
+) {
     @PrimaryKey(autoGenerate = true)
     var qid: Int? = 0
 }
@@ -68,4 +70,4 @@ data class Option(
     val key: String?,
 
     val value: String?
-){}
+) {}
