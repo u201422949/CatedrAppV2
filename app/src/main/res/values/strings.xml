@@ -2,7 +2,6 @@
     <string name="app_name">CatedrAppV2</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-
     <!--    FRAGMENT SPLASH INIT-->
     <string name="splash_desc_image">Logo de aplicación</string>
     <!--    FRAGMENT SPLASH END-->
@@ -68,7 +67,6 @@
     <!--    FRAGMENT MENU INIT-->
     <string name="menu_desc_close">Cerrar Menú</string>
     <!--    FRAGMENT MENU END-->
-
 
     <string name="fit_image_to_scan">Ajuste la imagen para escanear</string>
 

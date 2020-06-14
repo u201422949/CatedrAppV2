@@ -13,4 +13,6 @@
     <color name="modal_question_checked_rb">#FF68A0</color>
     <color name="modal_question_unchecked_rb">#E5E5E5</color>
     <color name="modal_question_option_text">#50535A</color>
+    <color name="menu_goals_item_title">#FF68A0</color>
+    <color name="menu_goals_item_subtitle">#FFFFFF</color>
 </resources>
