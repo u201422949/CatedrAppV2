@@ -78,3 +78,21 @@ data class Option(
 
     val value: String?
 ) : Serializable {}
+
+@Entity
+data class Challenge(
+    @ColumnInfo(name = "title")
+    val title: String?,
+
+    @ColumnInfo(name = "description")
+    val description: String?,
+
+    @ColumnInfo(name = "total")
+    val total: Int?,
+
+    @ColumnInfo(name = "progress")
+    val progress: Int?
+) : Serializable {
+    @PrimaryKey(autoGenerate = true)
+    var cid: Int? = 0
+}

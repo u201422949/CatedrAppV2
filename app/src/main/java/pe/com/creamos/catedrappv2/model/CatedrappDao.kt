@@ -1,8 +1,6 @@
 package pe.com.creamos.catedrappv2.model
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface CatedrappDao {
@@ -26,4 +24,17 @@ interface CatedrappDao {
 
     @Query("DELETE FROM additional_information")
     suspend fun deleteAdditionalInformation()
+
+    //Challenge Database
+    @Insert
+    suspend fun insertChallenge(vararg challengue: Challenge): List<Long>
+
+    @Query("SELECT * FROM challenge")
+    suspend fun getChallengeList(): List<Challenge>
+
+    @Query("UPDATE challenge SET progress = progress + 1")
+    suspend fun updateChallenge()
+
+    @Query("DELETE FROM challenge")
+    suspend fun deleteChallenge()
 }

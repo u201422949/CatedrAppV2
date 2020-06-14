@@ -20,9 +20,7 @@ import kotlinx.android.synthetic.main.fragment_main.*
 import pe.com.creamos.catedrappv2.R
 import pe.com.creamos.catedrappv2.R.layout.fragment_main
 import pe.com.creamos.catedrappv2.databinding.FragmentMainBinding
-import pe.com.creamos.catedrappv2.model.AdditionalInformation
-import pe.com.creamos.catedrappv2.model.Option
-import pe.com.creamos.catedrappv2.model.Question
+import pe.com.creamos.catedrappv2.model.*
 import pe.com.creamos.catedrappv2.util.TypeScore
 import pe.com.creamos.catedrappv2.view.interfaces.InfoWindowListener
 import pe.com.creamos.catedrappv2.view.node.*
@@ -40,6 +38,8 @@ class MainFragment : Fragment(), InfoWindowListener, View.OnClickListener {
 
     private var infoList: List<AdditionalInformation>? = ArrayList()
     private var questionList: List<Question>? = ArrayList()
+    private var challengeList: List<Challenge> = ArrayList()
+
     private var goArFragment: ArFragment? = null
     private var infoNode: InfoNode? = null
     private var questionNode: QuestionNode? = null
@@ -335,6 +335,9 @@ class MainFragment : Fragment(), InfoWindowListener, View.OnClickListener {
         onCloseClicked(node)
 
         Toast.makeText(context, "La respuesta es $answer", Toast.LENGTH_LONG).show()
+
+        // Si la respuesta es correcta se actualiza el desafío
+        viewModel.updateChallengeToDatabase()
 
         answerNode =
             AnswerNode(context, question, answer, this)

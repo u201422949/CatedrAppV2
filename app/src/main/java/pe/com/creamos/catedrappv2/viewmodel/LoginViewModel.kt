@@ -9,10 +9,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 import pe.com.creamos.catedrappv2.di.AppModule
 import pe.com.creamos.catedrappv2.di.DaggerViewModelComponent
-import pe.com.creamos.catedrappv2.model.CatedrappApiService
-import pe.com.creamos.catedrappv2.model.CatedrappDatabase
-import pe.com.creamos.catedrappv2.model.ResponseUser
-import pe.com.creamos.catedrappv2.model.User
+import pe.com.creamos.catedrappv2.model.*
 import pe.com.creamos.catedrappv2.util.SharePreferencesHelper
 import javax.inject.Inject
 
@@ -43,10 +40,11 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
         }
     }
 
-    fun service(user: User) {
+    fun service(user: User, challenge: Challenge) {
         inject()
         //fetchFromRemote(user)
         storeUser(user)
+        storeChallenge(challenge)
     }
 
     private fun fetchFromRemote(user: User) {
@@ -78,6 +76,14 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
             dao.deleteUser()
             dao.insertUser(user)
             userRetrieved(user)
+        }
+    }
+
+    private fun storeChallenge(challenge: Challenge) {
+        launch {
+            val dao = CatedrappDatabase(getApplication()).catedrappDao()
+            dao.deleteChallenge()
+            dao.insertChallenge(challenge)
         }
     }
 

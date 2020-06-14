@@ -5,7 +5,12 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [User::class, AdditionalInformation::class], version = 1)
+@Database(
+    entities = [
+        User::class,
+        AdditionalInformation::class,
+        Challenge::class], version = 2
+)
 abstract class CatedrappDatabase : RoomDatabase() {
 
     abstract fun catedrappDao(): CatedrappDao

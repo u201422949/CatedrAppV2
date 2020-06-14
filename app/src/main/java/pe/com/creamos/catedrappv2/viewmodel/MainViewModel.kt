@@ -52,7 +52,6 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         fetchUserFromDatabase(listOf())
     }
 
-
     private fun fetchInfoFromRemote() {
         loading.value = true
         disposable.add(
@@ -98,6 +97,13 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         information.value = infoList
         infoLoadError.value = false
         loading.value = false
+    }
+
+    fun updateChallengeToDatabase() {
+        loading.value = true
+        launch {
+            val result = CatedrappDatabase(getApplication()).catedrappDao().updateChallenge()
+        }
     }
 
     override fun onCleared() {
