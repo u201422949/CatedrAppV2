@@ -66,7 +66,9 @@ data class Question(
 
     val answerKey: Int?,
 
-    val options: List<Option>?
+    val options: List<Option>?,
+
+    var isRead: Boolean = false
 ) : Serializable {
     @PrimaryKey(autoGenerate = true)
     var qid: Int? = 0

@@ -127,7 +127,7 @@ class MainFragment : Fragment(), InfoWindowListener, View.OnClickListener {
                         "2",
                         "virgen.png",
                         "¿Cómo se le conoce popularmente a Nuestra Señora de la Evangelización?",
-                        "Juan Pablo II fue el primer papa que visitó el Perú en Febrero de 1985",
+                        "Es conocida popularmente como la \"Patrona de facto del Perú\"",
                         2,
                         listOf(
                             Option("1", "Santa Rosa de Lima"),
@@ -267,7 +267,7 @@ class MainFragment : Fragment(), InfoWindowListener, View.OnClickListener {
 //                                        info.getIdImage()
 //                                    ).isEmpty()
 //                                ) {
-                                if (!answeredQuestion) {
+                                if (!question.isRead) {
                                     questionNode =
                                         QuestionNode(context, question, this)
                                     questionNode?.setImage(augmentedImage)
@@ -332,6 +332,12 @@ class MainFragment : Fragment(), InfoWindowListener, View.OnClickListener {
         answer: Boolean
     ) {
         answeredQuestion = true
+
+        question?.idQuestion?.toInt()?.let {
+            questionList?.get(it - 1)?.isRead = true
+        }
+
+
         onCloseClicked(node)
 
         Toast.makeText(context, "La respuesta es $answer", Toast.LENGTH_LONG).show()
