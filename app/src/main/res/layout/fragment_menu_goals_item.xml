@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="challenge"
+            type="pe.com.creamos.catedrappv2.model.Challenge" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        tools:context=".view.fragment.MenuGoalsFragment">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/menu_goals_item_border"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:text="@{challenge.title}"
+                android:textColor="@color/menu_goals_item_title"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="18dp"
+                android:text="@{challenge.description}"
+                android:textColor="@color/menu_goals_item_subtitle"
+                android:textSize="22sp" />
+
+            <ProgressBar
+                android:id="@+id/progressScore"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="120dp"
+                android:layout_height="20dp"
+                android:layout_gravity="end"
+                android:layout_marginBottom="5dp"
+                android:indeterminate="false"
+                android:max="@{challenge.total}"
+                android:maxHeight="10dip"
+                android:minHeight="10dip"
+                android:progress="@{challenge.progress}"
+                android:progressDrawable="@drawable/main_goals_style_progress_indicator" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/menu_goals_item_badge_border"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="6dp"
+            android:paddingTop="4dp"
+            android:paddingRight="6dp"
+            android:paddingBottom="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`+`+ challenge.bonus}"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:contentDescription="@string/menu_goals_desc_star"
+                android:src="@drawable/main_goals_item_star" />
+        </LinearLayout>
+
+    </FrameLayout>
+
+</layout>

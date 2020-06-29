@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">CatedrAppV2</string>
+    <string name="app_name">CatedRApp</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--    FRAGMENT SPLASH INIT-->
     <string name="splash_desc_image">Logo de aplicación</string>
+    <string name="splash_text_error_service_data">No se pudo obtener la información del servidor.</string>
     <!--    FRAGMENT SPLASH END-->
 
     <!--    FRAGMENT LOGIN INIT-->
@@ -31,6 +32,23 @@
     <string name="main_text_add_score">Puntos por información adicional</string>
     <string name="main_text_score_dummy">+10</string>
     <!--    FRAGMENT MAIN END-->
+
+    <!--    FRAGMENT MENU INIT-->
+    <string name="menu_desc_close">Cerrar Menú</string>
+    <!--    FRAGMENT MENU END-->
+
+    <!--    FRAGMENT MENU GOALS ITEM INIT-->
+    <string name="menu_goals_desc_star">Estrella</string>
+    <!--    FRAGMENT MENU GOALS ITEM END-->
+
+    <!--    FRAGMENT DETAIL INIT-->
+    <string name="detail_text_level">NIVEL</string>
+    <string name="detail_text_score">PUNTOS</string>
+    <string name="detail_desc_coin">Moneda</string>
+    <string name="detail_text_user_info">DATOS DE USUARIO</string>
+    <string name="detail_text_mail">CORREO</string>
+    <string name="detail_text_nickname">ALIAS</string>
+    <!--    FRAGMENT DETAIL END-->
 
     <!--    MODAL INFO INIT-->
     <string name="info_desc_close">Cerrar ventana</string>
@@ -64,9 +82,17 @@
     <string name="question_wrong_response_dummy">LUIS IV llegó al Perú en el año 1727</string>
     <!--    MODAL QUESTION WRONG END-->
 
-    <!--    FRAGMENT MENU INIT-->
-    <string name="menu_desc_close">Cerrar Menú</string>
-    <!--    FRAGMENT MENU END-->
+    <!--    MODAL EXIT INIT-->
+    <string name="exit_text_question">¿Está seguro que desea salir de la aplicación?</string>
+    <string name="exit_text_logout">Salir</string>
+    <string name="exit_text_cancel">Cancelar</string>
+    <!--    MODAL EXIT END-->
+
+    <!--    MODAL EXIT INIT-->
+    <string name="rating_text_title">Valora nuestra APP y déjanos un comentario</string>
+    <string name="rating_text_message">Mensaje</string>
+    <string name="rating_text_assess">Valorar</string>
+    <!--    MODAL EXIT END-->
 
     <string name="fit_image_to_scan">Ajuste la imagen para escanear</string>
 

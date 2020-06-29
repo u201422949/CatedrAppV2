@@ -2,8 +2,8 @@ package pe.com.creamos.catedrappv2.di
 
 import dagger.Module
 import dagger.Provides
-import pe.com.creamos.catedrappv2.model.CatedrappAPI
-import pe.com.creamos.catedrappv2.model.CatedrappApiService
+import pe.com.creamos.catedrappv2.model.CatedrAppAPI
+import pe.com.creamos.catedrappv2.model.CatedrAppApiService
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -14,17 +14,17 @@ open class ApiModule {
     private val BASE_URL = "http://142.93.53.51/catedrapp/v1/"
 
     @Provides
-    fun provideCatedrappApi(): CatedrappAPI {
+    fun provideCatedrappApi(): CatedrAppAPI {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
-            .create(CatedrappAPI::class.java)
+            .create(CatedrAppAPI::class.java)
     }
 
     @Provides
-    open fun providesCatedrappApiService(): CatedrappApiService {
-        return CatedrappApiService()
+    open fun providesCatedrappApiService(): CatedrAppApiService {
+        return CatedrAppApiService()
     }
 }

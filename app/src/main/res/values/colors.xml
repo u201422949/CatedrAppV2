@@ -15,4 +15,5 @@
     <color name="modal_question_option_text">#50535A</color>
     <color name="menu_goals_item_title">#FF68A0</color>
     <color name="menu_goals_item_subtitle">#FFFFFF</color>
+    <color name="rating_message">#97ADB6</color>
 </resources>

@@ -15,8 +15,6 @@ import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_login.*
 import pe.com.creamos.catedrappv2.R
 import pe.com.creamos.catedrappv2.R.layout.fragment_login
-import pe.com.creamos.catedrappv2.model.Challenge
-import pe.com.creamos.catedrappv2.model.Score
 import pe.com.creamos.catedrappv2.model.User
 import pe.com.creamos.catedrappv2.util.validateMail
 import pe.com.creamos.catedrappv2.view.activity.MainActivity
@@ -49,7 +47,6 @@ class LoginFragment : Fragment(), OnClickListener, TextWatcher {
         edtAge.addTextChangedListener(this)
 
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
-
     }
 
     override fun onClick(v: View?) {
@@ -58,14 +55,7 @@ class LoginFragment : Fragment(), OnClickListener, TextWatcher {
             return
         }
 
-        val challenge = Challenge(
-            "Preguntas Correctas",
-            "Responde 2 preguntas correctas durante el recorrido",
-            2,
-            0
-        )
-
-        viewModel.service(User(1, textMail, textNickname, textAge.toInt(), Score(10, "10", 1)), challenge)
+        viewModel.service(User(null, textMail, textNickname, textAge.toInt()))
         observeViewModel(v)
     }
 

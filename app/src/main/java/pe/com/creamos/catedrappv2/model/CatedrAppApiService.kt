@@ -4,20 +4,24 @@ import io.reactivex.Single
 import pe.com.creamos.catedrappv2.di.DaggerApiComponent
 import javax.inject.Inject
 
-class CatedrappApiService {
+class CatedrAppApiService {
 
     @Inject
-    lateinit var api: CatedrappAPI
+    lateinit var api: CatedrAppAPI
 
     init {
         DaggerApiComponent.create().inject(this)
     }
 
-    fun getAdditionalInformationList(): Single<ResponseInformation> {
-        return api.getInformationList()
+    fun getDataStructure(dataVersion: String?): Single<ResponseDataStructure> {
+        return api.getDataStructure(dataVersion)
     }
 
     fun setUserInfo(user: User): Single<ResponseUser> {
         return api.setUserInfo(user)
+    }
+
+    fun setUserRating(rating: Rating): Single<ResponseUser> {
+        return api.setUserRating(rating)
     }
 }

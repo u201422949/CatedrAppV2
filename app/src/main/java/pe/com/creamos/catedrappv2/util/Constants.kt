@@ -1,2 +1,12 @@
 package pe.com.creamos.catedrappv2.util
 
+//PREFERENCES
+const val PREF_INITIAL_DATA_VERSION = "0.1"
+const val PREF_DATA_VERSION = "PREF_DATA_VERSION"
+
+//MAIN
+const val TIME_WAIT_FOR_ANSWER = 4000L
+const val TIME_HIDE_SCORE_VIEW = 2000L
+const val TIME_WAIT_FOR_HIDE_SCORE_VIEW = 3000L
+const val DIFFERENCE_TIME_SECONDS = 120
+const val ZONE_OFFSET = "-05:00"

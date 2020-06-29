@@ -30,26 +30,27 @@ import kotlinx.android.synthetic.main.modal_info_window.view.*
 import pe.com.creamos.catedrappv2.R
 import pe.com.creamos.catedrappv2.databinding.ModalInfoWindowBinding
 import pe.com.creamos.catedrappv2.model.AdditionalInformation
+import pe.com.creamos.catedrappv2.util.TypeScore
 import pe.com.creamos.catedrappv2.view.interfaces.InfoWindowListener
 import java.util.concurrent.CompletableFuture
 
 class InfoNode(
     context: Context?,
-    information: AdditionalInformation?,
+    private val information: AdditionalInformation?,
     infoWindowInterface: InfoWindowListener?
 ) : AnchorNode(), View.OnClickListener {
 
+    private var goInfoWindowStage: CompletableFuture<ViewRenderable?>? = null
     private lateinit var image: AugmentedImage
-    private lateinit var goInfoWindowStage: CompletableFuture<ViewRenderable?>
     private lateinit var infoWindowListener: InfoWindowListener
-    private var dataBinding: ModalInfoWindowBinding
+    private lateinit var dataBinding: ModalInfoWindowBinding
 
     companion object {
         private val TAG = InfoNode::class.simpleName
     }
 
     init {
-        goInfoWindowStage.let {
+        if (goInfoWindowStage == null) {
             infoWindowInterface?.let {
                 this.infoWindowListener = it
             }
@@ -60,7 +61,9 @@ class InfoNode(
                 null,
                 false
             )
+
             dataBinding.information = information
+
             val view = dataBinding.root
 
             view.imgInfoClose?.setOnClickListener(this)
@@ -71,7 +74,7 @@ class InfoNode(
     fun setImage(image: AugmentedImage) {
         this.image = image
 
-        if (!goInfoWindowStage.isDone) {
+        if (!goInfoWindowStage!!.isDone) {
             CompletableFuture.allOf(goInfoWindowStage)
                 .thenAccept {
                     setImage(
@@ -101,10 +104,13 @@ class InfoNode(
             ), 90f
         )
         baseNode.localScale = Vector3(0.2f, 0.2f, 0.2f)
-        baseNode.renderable = goInfoWindowStage.getNow(null)
+        baseNode.renderable = goInfoWindowStage!!.getNow(null)
     }
 
     override fun onClick(v: View) {
-        infoWindowListener.onCloseClicked(this)
+        infoWindowListener.onCloseClicked(
+            this, information!!, TypeScore.ADDITIONAL_INFORMATION,
+            information.wasRead!!
+        )
     }
 }

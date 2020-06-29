@@ -3,9 +3,7 @@ package pe.com.creamos.catedrappv2.view.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import pe.com.creamos.catedrappv2.view.fragment.MenuGiftFragment
 import pe.com.creamos.catedrappv2.view.fragment.MenuGoalsFragment
-import pe.com.creamos.catedrappv2.view.fragment.MenuMapFragment
 
 class MenuPageAdapter(fm: FragmentManager) :
     FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
@@ -13,8 +11,8 @@ class MenuPageAdapter(fm: FragmentManager) :
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> MenuGoalsFragment()
-            1 -> MenuMapFragment()
-            2 -> MenuGiftFragment()
+//            1 -> MenuMapFragment()
+//            2 -> MenuGiftFragment()
             else -> MenuGoalsFragment()
         }
     }
@@ -22,11 +20,11 @@ class MenuPageAdapter(fm: FragmentManager) :
     override fun getPageTitle(position: Int): CharSequence {
         return when (position) {
             0 -> "Objetivos"
-            1 -> "Mapa"
-            2 -> "Canje"
+//            1 -> "Mapa"
+//            2 -> "Canje"
             else -> "Objetivos"
         }
     }
 
-    override fun getCount(): Int = 3
+    override fun getCount(): Int = 1
 }

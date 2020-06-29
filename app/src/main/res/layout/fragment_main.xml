@@ -125,7 +125,7 @@
                     android:layout_gravity="end"
                     android:background="@drawable/main_style_level_indicator"
                     android:gravity="center"
-                    android:text="@{String.valueOf(score.keyScore)}"
+                    android:text="@{String.valueOf(score.level)}"
                     android:textStyle="bold" />
             </FrameLayout>
 
@@ -138,7 +138,7 @@
                 android:indeterminate="false"
                 android:maxHeight="10dip"
                 android:minHeight="10dip"
-                android:progress="50"
+                android:progress="@{score.scoreValue % 100}"
                 android:progressDrawable="@drawable/main_style_progress_indicator" />
 
             <TextView

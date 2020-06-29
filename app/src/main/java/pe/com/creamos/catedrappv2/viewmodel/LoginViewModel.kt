@@ -20,7 +20,7 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
     }
 
     @Inject
-    lateinit var catedrappService: CatedrappApiService
+    lateinit var catedrAppService: CatedrAppApiService
 
     @Inject
     lateinit var prefHelper: SharePreferencesHelper
@@ -40,31 +40,35 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
         }
     }
 
-    fun service(user: User, challenge: Challenge) {
+    fun service(user: User) {
         inject()
-        //fetchFromRemote(user)
-        storeUser(user)
-        storeChallenge(challenge)
+        fetchFromRemote(user)
     }
 
     private fun fetchFromRemote(user: User) {
         loading.value = true
 
         disposable.add(
-            catedrappService.setUserInfo(user).subscribeOn(Schedulers.newThread())
+            catedrAppService.setUserInfo(user).subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<ResponseUser>() {
                     override fun onSuccess(userResponse: ResponseUser) {
                         userResponse.visitorId?.let {
-                            user.visitorId = userResponse.visitorId
+                            user.visitorId = it
                             storeUser(user)
                         }
                     }
 
                     override fun onError(e: Throwable) {
-                        infoLoadError.value = true
-                        loading.value = false
                         e.printStackTrace()
+
+                        //TODO: Depurar cuando el servicio ya se encuentre funcionando
+                        user.visitorId = 1
+                        storeUser(user)
+
+                        //TODO: Descomentar cuando el servicio ya se encuentre funcionando
+//                        infoLoadError.value = true
+//                        loading.value = false
                     }
                 })
         )
@@ -72,18 +76,14 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
 
     private fun storeUser(user: User) {
         launch {
-            val dao = CatedrappDatabase(getApplication()).catedrappDao()
+            val dao = CatedrAppDatabase(getApplication()).catedrappDao()
             dao.deleteUser()
-            dao.insertUser(user)
-            userRetrieved(user)
-        }
-    }
+            dao.deleteScore()
+            dao.deleteLog()
 
-    private fun storeChallenge(challenge: Challenge) {
-        launch {
-            val dao = CatedrappDatabase(getApplication()).catedrappDao()
-            dao.deleteChallenge()
-            dao.insertChallenge(challenge)
+            val result = dao.insertUser(user)
+            dao.insertScore(Score(result[0].toInt(), 0, 1))
+            userRetrieved(user)
         }
     }
 

@@ -8,8 +8,6 @@ import androidx.core.content.edit
 class SharePreferencesHelper {
 
     companion object {
-
-        private const val PREF_INFO_VERSION = "PREF_INFO_VERSION"
         private var prefs: SharedPreferences? = null
 
         @Volatile
@@ -30,12 +28,12 @@ class SharePreferencesHelper {
         }
     }
 
-    fun setInfoVersion(version: String) {
+    fun setDataVersion(version: String) {
         prefs?.edit(commit = true) {
-            putString(PREF_INFO_VERSION, version)
+            putString(PREF_DATA_VERSION, version)
         }
     }
 
-    fun getInfoVersion() = prefs?.getString(PREF_INFO_VERSION, "1.0")
+    fun getDataVersion() = prefs?.getString(PREF_DATA_VERSION, PREF_INITIAL_DATA_VERSION)
 
 }

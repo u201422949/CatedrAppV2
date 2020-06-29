@@ -97,7 +97,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:text="NIVEL"
+                            android:text="@string/detail_text_level"
                             android:textColor="#FFFFFF"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -138,14 +138,15 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="3dp"
+                            android:layout_marginEnd="3dp"
+                            android:contentDescription="@string/detail_desc_coin"
                             android:src="@drawable/detail_coin" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
-                            android:text="PUNTOS"
+                            android:text="@string/detail_text_score"
                             android:textColor="#FFFFFF"
                             android:textSize="20sp"
                             android:textStyle="bold" />
@@ -156,7 +157,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="top|center"
-                        android:text="@{score.scoreValue}"
+                        android:text="@{String.valueOf(score.scoreValue)}"
                         android:textColor="#F0A023"
                         android:textSize="34sp"
                         android:textStyle="bold"
@@ -170,7 +171,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="DATOS DE USUARIO"
+                android:text="@string/detail_text_user_info"
                 android:textColor="#B2B2B2"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -205,7 +206,7 @@
                     android:id="@+id/textView2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="CORREO"
+                    android:text="@string/detail_text_mail"
                     android:textColor="#D5DDE0"
                     android:textSize="13sp"
                     android:textStyle="bold"
@@ -230,7 +231,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:text="ALIAS"
+                    android:text="@string/detail_text_nickname"
                     android:textColor="#D5DDE0"
                     android:textSize="13sp"
                     android:textStyle="bold"

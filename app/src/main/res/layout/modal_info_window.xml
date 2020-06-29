@@ -12,7 +12,7 @@
     <LinearLayout
         android:layout_width="288dp"
         android:layout_height="365dp"
-        android:background="@drawable/main_style_info"
+        android:background="@drawable/modal_style_border_ar_modal"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:orientation="vertical"

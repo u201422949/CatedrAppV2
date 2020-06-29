@@ -1,7 +1,6 @@
 package pe.com.creamos.catedrappv2.viewmodel
 
 import android.app.Application
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -11,7 +10,10 @@ import kotlinx.coroutines.launch
 import pe.com.creamos.catedrappv2.di.AppModule
 import pe.com.creamos.catedrappv2.di.DaggerViewModelComponent
 import pe.com.creamos.catedrappv2.model.*
-import pe.com.creamos.catedrappv2.util.SharePreferencesHelper
+import pe.com.creamos.catedrappv2.util.TypeScore
+import pe.com.creamos.catedrappv2.util.ZONE_OFFSET
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 import javax.inject.Inject
 
 class MainViewModel(application: Application) : BaseViewModel(application) {
@@ -21,17 +23,15 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
     }
 
     @Inject
-    lateinit var catedrappService: CatedrappApiService
-
-    @Inject
-    lateinit var prefHelper: SharePreferencesHelper
+    lateinit var catedrAppService: CatedrAppApiService
 
     private val disposable = CompositeDisposable()
     private var injected = false
-    private var versionData = false
 
-    val information = MutableLiveData<List<AdditionalInformation>>()
-    val user = MutableLiveData<User>()
+    val information = MutableLiveData<MutableList<AdditionalInformation>>()
+    val question = MutableLiveData<List<QuestionAndOptions>>()
+    val user = MutableLiveData<UserAndScore>()
+    val completedGoal = MutableLiveData<Challenge>()
     val infoLoadError = MutableLiveData<Boolean>()
     val loading = MutableLiveData<Boolean>()
 
@@ -46,63 +46,117 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
 
     fun refresh() {
         inject()
-
-       // if (versionData) fetchInfoFromDatabase() else fetchInfoFromRemote()
-
-        fetchUserFromDatabase(listOf())
+        fetchDataFromDatabase()
     }
 
-    private fun fetchInfoFromRemote() {
-        loading.value = true
-        disposable.add(
-            catedrappService.getAdditionalInformationList()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<ResponseInformation>() {
-                    override fun onSuccess(infoList: ResponseInformation) {
-                        infoList.additionalInformationList?.let {
-                            prefHelper.setInfoVersion("1.0")
-                            fetchUserFromDatabase(it)
-                        }
-                    }
-
-                    override fun onError(e: Throwable) {
-                        infoLoadError.value = true
-                        loading.value = false
-                        e.printStackTrace()
-                    }
-                })
-        )
-    }
-
-    private fun fetchInfoFromDatabase() {
+    private fun fetchDataFromDatabase() {
         loading.value = true
         launch {
-            val result = CatedrappDatabase(getApplication()).catedrappDao().getInformationList()
-            Toast.makeText(getApplication(), "RETRIEVE FROM DATABASE", Toast.LENGTH_SHORT).show()
-            fetchUserFromDatabase(result)
+            val dao = CatedrAppDatabase(getApplication()).catedrappDao()
+            val infoResult = dao.getInformationList()
+            val questionResult = dao.getQuestionList()
+            val userResult = dao.getUser()
+            dataRetrieved(infoResult, questionResult, userResult)
         }
     }
 
-    private fun fetchUserFromDatabase(infoList: List<AdditionalInformation>) {
+    fun updateElementRead(element: Any, typeScore: TypeScore) {
         loading.value = true
-        launch {
-            val result = CatedrappDatabase(getApplication()).catedrappDao().getUser()
-            dataRetrieved(infoList, result)
+
+        when (element) {
+            is AdditionalInformation -> updateInfoRead(element)
+            is Question -> updateQuestionRead(element, typeScore)
         }
     }
 
-    private fun dataRetrieved(infoList: List<AdditionalInformation>, userRetrieve: User) {
+    private fun updateInfoRead(info: AdditionalInformation) {
+        launch {
+            info.wasRead = true
+            info.updateDate = LocalDateTime.now(ZoneOffset.of(ZONE_OFFSET))
+
+            CatedrAppDatabase(getApplication()).catedrappDao().updateInformation(info)
+            loading.value = false
+        }
+    }
+
+    private fun updateQuestionRead(question: Question, typeScore: TypeScore) {
+        launch {
+            if (typeScore == TypeScore.QUESTION)
+                question.questionWasRead = true
+            else
+                question.answerWasRead = true
+
+            question.updateDate = LocalDateTime.now(ZoneOffset.of(ZONE_OFFSET))
+            CatedrAppDatabase(getApplication()).catedrappDao().updateQuestion(question)
+            loading.value = false
+        }
+    }
+
+    private fun dataRetrieved(
+        infoRetrieveList: List<AdditionalInformation>,
+        questionRetrieveList: List<QuestionAndOptions>,
+        userRetrieve: UserAndScore
+    ) {
         user.value = userRetrieve
-        information.value = infoList
+        information.value = infoRetrieveList.toMutableList()
+        question.value = questionRetrieveList
         infoLoadError.value = false
         loading.value = false
+        completedGoal.value = null
     }
 
-    fun updateChallengeToDatabase() {
+
+    fun updateScoreAndChallenge(typeScore: TypeScore, nullGoalsViewModel: Boolean) {
         loading.value = true
         launch {
-            val result = CatedrappDatabase(getApplication()).catedrappDao().updateChallenge()
+            val dao = CatedrAppDatabase(getApplication()).catedrappDao()
+            val challenge = dao.getChallengeList(typeScore.name)
+            val userAndScore = user.value
+
+            userAndScore?.score?.let {
+                it.scoreValue = it.scoreValue!!.plus(typeScore.points)
+                val modValue = it.scoreValue!! % 100
+                it.level = ((it.scoreValue!! - modValue) / 100) + 1
+                dao.updateScore(it)
+            }
+
+            challenge?.let {
+                it.progress = it.progress?.plus(1)
+                it.completed = it.total == it.progress
+                dao.updateChallenge(it)
+
+                if (it.completed!!)
+                    completedGoal.value = it
+            }
+
+            if (nullGoalsViewModel)
+                completedGoal.value = null
+
+            user.value = userAndScore
+            loading.value = false
+        }
+    }
+
+    fun saveRatingOnRemote(rated: Int, message: String) {
+        loading.value = true
+
+        val ratedDate = LocalDateTime.now(ZoneOffset.of(ZONE_OFFSET))
+
+        user.value?.user?.visitorId?.let {
+            disposable.add(
+                catedrAppService.setUserRating(Rating(it, rated, message, ratedDate))
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeWith(object : DisposableSingleObserver<ResponseUser>() {
+                        override fun onSuccess(t: ResponseUser) {
+                            // TODO: Validar si se implementará en base de datos
+                        }
+
+                        override fun onError(e: Throwable) {
+                            e.printStackTrace()
+                        }
+                    })
+            )
         }
     }
 

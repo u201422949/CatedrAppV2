@@ -34,18 +34,24 @@ import pe.com.creamos.catedrappv2.R
 import pe.com.creamos.catedrappv2.databinding.ModalQuestionWindowBinding
 import pe.com.creamos.catedrappv2.model.Option
 import pe.com.creamos.catedrappv2.model.Question
+import pe.com.creamos.catedrappv2.model.QuestionAndOptions
+import pe.com.creamos.catedrappv2.util.TIME_WAIT_FOR_ANSWER
+import pe.com.creamos.catedrappv2.util.TypeScore
+import pe.com.creamos.catedrappv2.util.safeLet
 import pe.com.creamos.catedrappv2.view.interfaces.InfoWindowListener
 import java.util.concurrent.CompletableFuture
 
 
 class QuestionNode(
     context: Context?,
-    question: Question?,
+    questionAndOptions: QuestionAndOptions?,
     infoWindowInterface: InfoWindowListener?
 ) : AnchorNode(), View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
     private var question: Question? = null
+    private var options: List<Option>? = ArrayList()
     private var image: AugmentedImage? = null
+    private var isRightAnswer: Boolean? = false
     private var goInfoWindowStage: CompletableFuture<ViewRenderable?>? = null
     private lateinit var infoWindowListener: InfoWindowListener
     private lateinit var dataBinding: ModalQuestionWindowBinding
@@ -71,21 +77,21 @@ class QuestionNode(
                 false
             )
 
-            this.question = question
-            dataBinding.question = this.question
-            dataBinding.option1 = this.question?.options?.get(0) ?: Option("1", "Error")
-            dataBinding.option2 = this.question?.options?.get(1) ?: Option("2", "Error")
-            dataBinding.option3 = this.question?.options?.get(2) ?: Option("3", "Error")
-            dataBinding.option4 = this.question?.options?.get(3) ?: Option("4", "Error")
+            question = questionAndOptions?.question
+            options = questionAndOptions?.options
+            dataBinding.question = question
+            dataBinding.option1 = options?.get(0)
+            dataBinding.option2 = options?.get(1)
+            dataBinding.option3 = options?.get(2)
+            dataBinding.option4 = options?.get(3)
+
             val view = dataBinding.root
 
             rg1 = view.radioGroupFirst
             rg2 = view.radioGroupSecond
-
-
-            view.imgInfoClose?.setOnClickListener(this)
             rg1.setOnCheckedChangeListener(this)
             rg2.setOnCheckedChangeListener(this)
+            view.imgInfoClose?.setOnClickListener(this)
             goInfoWindowStage = ViewRenderable.builder().setView(context, view).build()
         }
     }
@@ -135,10 +141,6 @@ class QuestionNode(
         Log.i(TAG, "z: " + baseNode.localRotation.z)
     }
 
-    override fun onClick(v: View) {
-        infoWindowListener.onCloseClicked(this)
-    }
-
     override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
         handler.removeCallbacks(null)
 
@@ -153,19 +155,26 @@ class QuestionNode(
         }
 
         val selectedRadio = group?.findViewById<AppCompatRadioButton>(checkedId)
-//         = group?.getChildAt(checkedId) as AppCompatRadioButton
         val answer = selectedRadio?.tag
 
         if (answer is String) {
-            waitToValidate(answer.toInt() == question?.answerKey)
+            handler.removeCallbacks(runnableDueTime)
+            Log.i(TAG, "RemoveCallbacks")
+            isRightAnswer = answer.toInt() == question?.answerKey
+            handler.postDelayed(runnableDueTime, TIME_WAIT_FOR_ANSWER)
         }
     }
 
-    private fun waitToValidate(isRightAnswer: Boolean) {
-        handler.postDelayed({
-            if (image != null && question != null) {
-                infoWindowListener.onDueTimeWindow(this, image!!, question!!, isRightAnswer)
-            }
-        }, 4000)
+    private var runnableDueTime: Runnable = Runnable {
+        safeLet(image, question, isRightAnswer) { img, question, answer ->
+            Log.i(TAG, "OpenAnswerWindow")
+            infoWindowListener.onDueTimeWindow(
+                this, img, question, answer
+            )
+        }
+    }
+
+    override fun onClick(v: View) {
+        infoWindowListener.onCloseClicked(this, question!!, TypeScore.QUESTION, true)
     }
 }

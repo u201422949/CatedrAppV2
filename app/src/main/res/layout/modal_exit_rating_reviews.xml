@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/modal_style_border_modal"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/imgInfoClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:contentDescription="@string/info_desc_close"
+        android:src="@drawable/modal_info_close" />
+
+    <TextView
+        android:id="@+id/txtInfoTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/rating_text_title"
+        android:textAlignment="center"
+        android:textSize="20sp" />
+
+    <androidx.appcompat.widget.AppCompatRatingBar
+        android:id="@+id/ratingApp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:indeterminateDrawable="@drawable/modal_style_rating_bar"
+        android:isIndicator="false"
+        android:maxHeight="32dp"
+        android:minHeight="32dp"
+        android:numStars="5"
+        android:progressDrawable="@drawable/modal_style_rating_bar"
+        android:stepSize="0.01" />
+
+    <EditText
+        android:id="@+id/edtMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:autofillHints="@string/rating_text_message"
+        android:background="@drawable/modal_style_rating_edittext"
+        android:gravity="top"
+        android:hint="@string/rating_text_message"
+        android:inputType="textMultiLine"
+        android:lineSpacingExtra="2sp"
+        android:lines="5"
+        android:maxLines="10"
+        android:padding="20dp"
+        android:textColorHint="@color/rating_message"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/btnAssess"
+        android:layout_width="match_parent"
+        android:layout_height="37dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/modal_style_exit_second_button"
+        android:text="@string/rating_text_assess"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white" />
+</LinearLayout>

@@ -31,14 +31,15 @@ import pe.com.creamos.catedrappv2.R
 import pe.com.creamos.catedrappv2.databinding.ModalQuestionWindowRightBinding
 import pe.com.creamos.catedrappv2.databinding.ModalQuestionWindowWrongBinding
 import pe.com.creamos.catedrappv2.model.Question
+import pe.com.creamos.catedrappv2.util.TypeScore
 import pe.com.creamos.catedrappv2.view.interfaces.InfoWindowListener
 import java.util.concurrent.CompletableFuture
 
 
 class AnswerNode(
     context: Context?,
-    question: Question?,
-    answer: Boolean,
+    private val question: Question?,
+    private val answer: Boolean,
     infoWindowInterface: InfoWindowListener?
 ) : AnchorNode(), View.OnClickListener {
 
@@ -132,6 +133,7 @@ class AnswerNode(
     }
 
     override fun onClick(v: View) {
-        infoWindowListener.onCloseClicked(this)
+        val typeScore = if (answer) TypeScore.QUESTION_RIGHT else TypeScore.QUESTION_WRONG
+        infoWindowListener.onCloseClicked(this, question!!, typeScore, question.answerWasRead!!)
     }
 }

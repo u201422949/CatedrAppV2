@@ -13,8 +13,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="360" />
-                            <option name="y" value="63" />
+                            <option name="x" value="295" />
+                            <option name="y" value="-63" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -40,6 +40,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_mainFragment_to_loginFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_mainFragment_to_menuFragment">
                               <value>
                                 <LayoutPositions />
@@ -63,6 +68,15 @@
                             <option name="x" value="623" />
                             <option name="y" value="264" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_menuFragment_to_mainFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -101,6 +115,15 @@
                             <option name="x" value="626" />
                             <option name="y" value="553" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_userDetailFragment_to_mainFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
