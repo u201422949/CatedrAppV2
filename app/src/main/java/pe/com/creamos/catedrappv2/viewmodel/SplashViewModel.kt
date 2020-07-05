@@ -12,13 +12,12 @@ import pe.com.creamos.catedrappv2.di.DaggerViewModelComponent
 import pe.com.creamos.catedrappv2.model.*
 import pe.com.creamos.catedrappv2.util.PREF_INITIAL_DATA_VERSION
 import pe.com.creamos.catedrappv2.util.SharePreferencesHelper
-import pe.com.creamos.catedrappv2.util.TypeScore
 import javax.inject.Inject
 
 class SplashViewModel(application: Application) : BaseViewModel(application) {
 
-    constructor(application: Application, test: Boolean = true) : this(application) {
-        injected = true
+    constructor(application: Application, test: Boolean) : this(application) {
+        injected = test
     }
 
     @Inject
@@ -66,56 +65,56 @@ class SplashViewModel(application: Application) : BaseViewModel(application) {
                     override fun onError(e: Throwable) {
                         e.printStackTrace()
 
-                        if (dataVersion.equals(PREF_INITIAL_DATA_VERSION) && attempts < 3) {
+                        if ((dataVersion == PREF_INITIAL_DATA_VERSION) && attempts < 3) {
                             attempts++
                             fetchFromRemote()
                         } else {
                             //TODO: Depurar cuando el servicio ya se encuentre funcionando
-                            prefHelper.setDataVersion("1.0")
-                            val responseDataStructure = ResponseDataStructure(
-                                "",
-                                "1.0",
-                                listOf(
-                                    ResponseInformation(
-                                        1,
-                                        "papa.jpg",
-                                        "Juan Pablo II",
-                                        "Descripción acerca de Juan Pablo Segundo"
-                                    )
-                                ),
-                                listOf(
-                                    ResponseQuestion(
-                                        1,
-                                        "virgen.png",
-                                        "¿Cómo se le conoce popularmente a Nuestra Señora de la Evangelización?",
-                                        "Es conocida popularmente como la \"Patrona de facto del Perú\"",
-                                        2,
-                                        listOf(
-                                            ResponseOption(1, "1", "Santa Rosa de Lima"),
-                                            ResponseOption(2, "2", "Patrona de facto del Perú"),
-                                            ResponseOption(3, "3", "Virgen Mariana"),
-                                            ResponseOption(4, "4", "Ninguna de las anteriores")
-                                        )
-                                    )
-                                ),
-                                listOf(
-                                    ResponseChallenge(
-                                        1,
-                                        TypeScore.QUESTION_RIGHT.name,
-                                        50,
-                                        "Preguntas Correctas",
-                                        "Responde 1 preguntas correctas durante el recorrido",
-                                        1,
-                                        0
-                                    )
-                                )
-                            )
-
-                            storeData(responseDataStructure)
+//                            prefHelper.setDataVersion("1.0")
+//                            val responseDataStructure = ResponseDataStructure(
+//                                "",
+//                                "1.0",
+//                                listOf(
+//                                    ResponseInformation(
+//                                        1,
+//                                        "papa.jpg",
+//                                        "Juan Pablo II",
+//                                        "Descripción acerca de Juan Pablo Segundo"
+//                                    )
+//                                ),
+//                                listOf(
+//                                    ResponseQuestion(
+//                                        1,
+//                                        "virgen.png",
+//                                        "¿Cómo se le conoce popularmente a Nuestra Señora de la Evangelización?",
+//                                        "Es conocida popularmente como la \"Patrona de facto del Perú\"",
+//                                        2,
+//                                        listOf(
+//                                            ResponseOption(1, "1", "Santa Rosa de Lima"),
+//                                            ResponseOption(2, "2", "Patrona de facto del Perú"),
+//                                            ResponseOption(3, "3", "Virgen Mariana"),
+//                                            ResponseOption(4, "4", "Ninguna de las anteriores")
+//                                        )
+//                                    )
+//                                ),
+//                                listOf(
+//                                    ResponseChallenge(
+//                                        1,
+//                                        TypeScore.QUESTION_RIGHT.name,
+//                                        50,
+//                                        "Preguntas Correctas",
+//                                        "Responde 1 preguntas correctas durante el recorrido",
+//                                        1,
+//                                        0
+//                                    )
+//                                )
+//                            )
+//
+//                            storeData(responseDataStructure)
 
                             //TODO: Descomentar cuando el servicio ya se encuentre funcionando
-//                            dataLoadError.value = true
-//                            loading.value = false
+                            dataLoadError.value = true
+                            loading.value = false
                         }
                     }
                 })

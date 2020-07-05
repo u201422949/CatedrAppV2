@@ -160,6 +160,20 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
         }
     }
 
+    fun saveLog() {
+        launch {
+            CatedrAppDatabase(getApplication()).catedrappDao().insertLog(
+                ActionLog(
+                    1, "Sharing content", LocalDateTime.now(
+                        ZoneOffset.of(
+                            ZONE_OFFSET
+                        )
+                    )
+                )
+            )
+        }
+    }
+
     override fun onCleared() {
         super.onCleared()
         disposable.clear()

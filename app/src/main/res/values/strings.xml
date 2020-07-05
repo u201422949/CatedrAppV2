@@ -91,8 +91,13 @@
     <!--    MODAL EXIT INIT-->
     <string name="rating_text_title">Valora nuestra APP y déjanos un comentario</string>
     <string name="rating_text_message">Mensaje</string>
-    <string name="rating_text_assess">Valorar</string>
+    <string name="rating_btn_assess">Valorar</string>
     <!--    MODAL EXIT END-->
+
+    <!--    MODAL SHARE INIT-->
+    <string name="share_text_title">Gracias por compartir contenido de la aplicación</string>
+    <string name="share_btn_close">Cerrar</string>
+    <!--    MODAL SHARE END-->
 
     <string name="fit_image_to_scan">Ajuste la imagen para escanear</string>
 

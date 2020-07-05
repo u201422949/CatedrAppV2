@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 @Module
 open class ApiModule {
 
-    private val BASE_URL = "http://142.93.53.51/catedrapp/v1/"
+    private val BASE_URL = "http://a8f5137f0651.ngrok.io/api/v1/"
 
     @Provides
     fun provideCatedrappApi(): CatedrAppAPI {

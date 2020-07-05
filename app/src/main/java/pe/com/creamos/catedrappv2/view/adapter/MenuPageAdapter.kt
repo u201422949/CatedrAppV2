@@ -13,7 +13,7 @@ class MenuPageAdapter(fm: FragmentManager) :
             0 -> MenuGoalsFragment()
 //            1 -> MenuMapFragment()
 //            2 -> MenuGiftFragment()
-            else -> MenuGoalsFragment()
+            else -> Fragment()
         }
     }
 
@@ -22,7 +22,7 @@ class MenuPageAdapter(fm: FragmentManager) :
             0 -> "Objetivos"
 //            1 -> "Mapa"
 //            2 -> "Canje"
-            else -> "Objetivos"
+            else -> ""
         }
     }
 

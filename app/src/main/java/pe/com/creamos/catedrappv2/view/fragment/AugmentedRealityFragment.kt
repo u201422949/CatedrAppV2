@@ -81,8 +81,8 @@ class AugmentedRealityFragment : ArFragment() {
         }
         try {
             context!!.assets.open(sampleImageDatabase)
-                .use { `is` ->
-                    augmentedImageDatabase = AugmentedImageDatabase.deserialize(session, `is`)
+                .use { stream ->
+                    augmentedImageDatabase = AugmentedImageDatabase.deserialize(session, stream)
                 }
         } catch (e: IOException) {
             Log.e(

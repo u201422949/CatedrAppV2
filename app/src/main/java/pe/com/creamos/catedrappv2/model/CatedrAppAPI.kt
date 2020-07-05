@@ -8,8 +8,8 @@ import retrofit2.http.Query
 
 interface CatedrAppAPI {
 
-    @GET("information")
-    fun getDataStructure(@Query("dataVersion") dataVersion: String?): Single<ResponseDataStructure>
+    @GET("data")
+    fun getDataStructure(@Query("dataVersion") dataVersion: Int?): Single<ResponseDataStructure>
 
     @POST("visitor")
     fun setUserInfo(@Body user: User): Single<ResponseUser>

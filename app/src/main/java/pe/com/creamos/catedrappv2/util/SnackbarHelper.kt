@@ -40,15 +40,15 @@ class SnackbarHelper {
         private var instance: SnackbarHelper? = null
         private val LOCK = Any()
 
-        operator fun invoke(context: Context): SnackbarHelper = instance ?: synchronized(
+        operator fun invoke(): SnackbarHelper = instance ?: synchronized(
             LOCK
         ) {
-            instance ?: buildHelper(context).also {
+            instance ?: buildHelper().also {
                 instance = it
             }
         }
 
-        private fun buildHelper(context: Context): SnackbarHelper {
+        private fun buildHelper(): SnackbarHelper {
             return SnackbarHelper()
         }
     }

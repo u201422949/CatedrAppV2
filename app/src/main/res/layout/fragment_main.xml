@@ -78,7 +78,7 @@
                 android:layout_margin="16dp"
                 android:contentDescription="@string/main_desc_photo"
                 android:scaleType="center"
-                android:src="@drawable/main_style_camera_fab"
+                android:src="@drawable/photo_style_share_fab"
                 android:visibility="visible"
                 app:fabSize="mini"
                 app:layout_anchor="@id/dummy"

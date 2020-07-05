@@ -138,6 +138,8 @@ class MainFragment : Fragment(), InfoWindowListener, View.OnClickListener {
     private fun onUpdateFrame(frameTime: FrameTime) {
         val frame = goArFragment!!.arSceneView.arFrame ?: return
 
+        Log.i(TAG, "frametime: $frameTime")
+
         val updatedAugmentedImages =
             frame.getUpdatedTrackables(
                 AugmentedImage::class.java
@@ -284,9 +286,11 @@ class MainFragment : Fragment(), InfoWindowListener, View.OnClickListener {
     }
 
     private fun animateScore(typeScore: TypeScore) {
-        dataBinding.typeScore = typeScore
-        linearScore.visibility = View.VISIBLE
-        linearScore.postDelayed({ linearScore.visibility = View.GONE }, TIME_HIDE_SCORE_VIEW)
+        linearScore.let {
+            dataBinding.typeScore = typeScore
+            linearScore.visibility = View.VISIBLE
+            linearScore.postDelayed({ linearScore.visibility = View.GONE }, TIME_HIDE_SCORE_VIEW)
+        }
     }
 
     override fun onDueTimeWindow(
@@ -313,6 +317,7 @@ class MainFragment : Fragment(), InfoWindowListener, View.OnClickListener {
                 )
 
                 logoutFab -> showExitDialog(it)
+                photoFab -> showSharingDialog()
             }
         }
     }
@@ -351,6 +356,23 @@ class MainFragment : Fragment(), InfoWindowListener, View.OnClickListener {
             viewModel.saveRatingOnRemote(ratingApp.rating.toInt(), edtMessage.text.toString())
             Navigation.findNavController(view)
                 .navigate(MainFragmentDirections.actionMainFragmentToLoginFragment())
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+    private fun showSharingDialog() {
+        val dialog = Dialog(context!!)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.setCancelable(false)
+        dialog.setContentView(R.layout.modal_share)
+
+        val btnAccept = dialog.findViewById(R.id.btnAccept) as Button
+
+        btnAccept.setOnClickListener {
+            viewModel.saveLog()
             dialog.dismiss()
         }
 

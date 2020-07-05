@@ -66,7 +66,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/modal_style_exit_second_button"
-        android:text="@string/rating_text_assess"
+        android:text="@string/rating_btn_assess"
         android:textAllCaps="false"
         android:textColor="@android:color/white" />
 </LinearLayout>

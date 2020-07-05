@@ -28,12 +28,12 @@ class SharePreferencesHelper {
         }
     }
 
-    fun setDataVersion(version: String) {
+    fun setDataVersion(version: Int) {
         prefs?.edit(commit = true) {
-            putString(PREF_DATA_VERSION, version)
+            putInt(PREF_DATA_VERSION, version)
         }
     }
 
-    fun getDataVersion() = prefs?.getString(PREF_DATA_VERSION, PREF_INITIAL_DATA_VERSION)
+    fun getDataVersion() = prefs?.getInt(PREF_DATA_VERSION, PREF_INITIAL_DATA_VERSION)
 
 }

@@ -63,12 +63,12 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
                         e.printStackTrace()
 
                         //TODO: Depurar cuando el servicio ya se encuentre funcionando
-                        user.visitorId = 1
-                        storeUser(user)
+//                        user.visitorId = 1
+//                        storeUser(user)
 
                         //TODO: Descomentar cuando el servicio ya se encuentre funcionando
-//                        infoLoadError.value = true
-//                        loading.value = false
+                        infoLoadError.value = true
+                        loading.value = false
                     }
                 })
         )

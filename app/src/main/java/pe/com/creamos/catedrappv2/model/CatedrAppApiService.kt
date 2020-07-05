@@ -13,7 +13,7 @@ class CatedrAppApiService {
         DaggerApiComponent.create().inject(this)
     }
 
-    fun getDataStructure(dataVersion: String?): Single<ResponseDataStructure> {
+    fun getDataStructure(dataVersion: Int?): Single<ResponseDataStructure> {
         return api.getDataStructure(dataVersion)
     }
 

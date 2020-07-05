@@ -98,10 +98,10 @@ class OutlineTextView(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
         var outlineWidth = 0f
 
         internal constructor(superState: Parcelable?) : super(superState)
-        private constructor(`in`: Parcel) : super(`in`) {
-            textColor = `in`.readInt()
-            outlineColor = `in`.readInt()
-            outlineWidth = `in`.readFloat()
+        private constructor(parcel: Parcel) : super(parcel) {
+            textColor = parcel.readInt()
+            outlineColor = parcel.readInt()
+            outlineWidth = parcel.readFloat()
         }
 
         override fun writeToParcel(out: Parcel, flags: Int) {
@@ -114,8 +114,8 @@ class OutlineTextView(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
         companion object {
             val CREATOR: Parcelable.Creator<SavedState?> =
                 object : Parcelable.Creator<SavedState?> {
-                    override fun createFromParcel(`in`: Parcel): SavedState? {
-                        return SavedState(`in`)
+                    override fun createFromParcel(parcel: Parcel): SavedState? {
+                        return SavedState(parcel)
                     }
 
                     override fun newArray(size: Int): Array<SavedState?> {

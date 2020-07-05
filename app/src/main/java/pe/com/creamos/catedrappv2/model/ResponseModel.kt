@@ -11,7 +11,7 @@ data class ResponseUser(
 data class ResponseDataStructure(
     val error: String?,
 
-    val dataVersion: String?,
+    val dataVersion: Int?,
 
     val additionalInformationList: List<ResponseInformation>?,
 

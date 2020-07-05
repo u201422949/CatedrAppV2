@@ -67,9 +67,13 @@ class LoginFragment : Fragment(), OnClickListener, TextWatcher {
         btnLogin.isEnabled = !(textMail.isEmpty() || textNickname.isEmpty() || textAge.isEmpty())
     }
 
-    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        //I've not implemented because it's no necessary at this time
+    }
 
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+        //I've not implemented because it's no necessary at this time
+    }
 
     private fun observeViewModel(view: View?) {
         viewModel.user.observe(viewLifecycleOwner, Observer { user ->
